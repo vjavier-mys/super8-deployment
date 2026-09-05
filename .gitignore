@@ -1,0 +1,9 @@
+# Secrets and local state
+.env
+.env.*
+*.pem
+*.key
+id_*
+secrets/
+*.log
+.DS_Store
