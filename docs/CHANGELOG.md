@@ -25,4 +25,12 @@
 - Updated the MongoDB URL after the first Atlas endpoint failed; the application then initialized successfully.
 - Added nginx reverse proxy for `droplet3.mysuki.net` and verified public HTTP plus `/api/health`.
 - Verified response: `{"ok":true,"version":"0.9.0-rc.1","debug":false}`.
-- HTTPS remains pending a certificate contact email. Existing `kasuki-s8.mysuki.net` DNS was not changed.
+- HTTPS was configured later under the separate HTTPS hostname setup entry. Existing `kasuki-s8.mysuki.net` DNS was not changed.
+
+## 2026-09-05 — HTTPS hostname setup
+
+- Configured nginx for `kasuki-s8.mysuki.io` while retaining `droplet3.mysuki.net`.
+- Installed Certbot and the nginx plugin.
+- Issued a Let's Encrypt ECDSA certificate covering both hostnames; expiry is 2026-12-04.
+- Enabled HTTP-to-HTTPS redirects and verified the public app and `/api/health` over HTTPS.
+- Verified the Certbot renewal timer is enabled.
