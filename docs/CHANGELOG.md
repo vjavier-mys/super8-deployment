@@ -72,3 +72,11 @@
 - Verified local and public HTTPS health: `{"ok":true,"version":"0.9.1-rc.1","debug":false}`.
 - Verified `kasuki-s8.mysuki.io` continues to return HTTP 200 with its existing TLS certificate.
 - Build reported one moderate npm audit finding; dependencies were not automatically changed.
+
+## 2026-09-06 — Root SSH key exception
+
+- Installed Victor's supplied public key in `/root/.ssh/authorized_keys` with root-only ownership and mode `600`.
+- Changed the SSH policy to `PermitRootLogin prohibit-password`; root password and keyboard-interactive authentication remain disabled.
+- Updated `AllowUsers` to permit only `deploy` and root key authentication.
+- Validated `sshd -t`, reloaded SSH, and verified the existing `deploy` key login still works.
+- The matching private key remains on Victor's laptop and was never requested or handled by Hermes.

@@ -14,9 +14,9 @@ This document covers the infrastructure shared by Kasuki Super8 Assistant and Ka
 | Public IP | `168.144.110.200` |
 | Public hostname | `droplet3.mysuki.net` |
 | SSH user | `deploy` |
-| SSH access | Key-only; root SSH disabled |
+| SSH access | Key-only; root key exception enabled, root password login disabled |
 
-The `deploy` account has a locked password, belongs to the Docker group, and has passwordless sudo for automation. Do not enable password SSH or root SSH.
+The `deploy` account has a locked password, belongs to the Docker group, and has passwordless sudo for automation. Password SSH remains disabled; root access is restricted to the explicitly authorized public key.
 
 ## 2. Required server packages
 

@@ -11,10 +11,10 @@ This baseline is applied to `ubuntu3` before hosting public applications.
 - `deploy` user created with a locked password and SSH-key-only access.
 - `deploy` belongs to the `sudo` and `docker` groups.
 - `deploy` has passwordless sudo for automation; access is controlled by SSH keys.
-- Root SSH login disabled.
+- Root password SSH login remains disabled; an explicit key-only root-login exception was added for Victor's supplied public key on 2026-09-06.
 - SSH password and keyboard-interactive authentication disabled.
 - X11 forwarding disabled.
-- SSH access limited to the `deploy` account.
+- SSH access limited to `deploy` and root key authentication.
 - UFW enabled with inbound TCP 22, 80, and 443 only.
 - Default inbound policy is deny; default outbound policy is allow.
 - fail2ban SSH jail active.
