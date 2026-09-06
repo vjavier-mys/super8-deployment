@@ -53,3 +53,13 @@
 - Aligned `GOOGLE_CLIENT_ID`, `NEXT_PUBLIC_GOOGLE_CLIENT_ID`, and `VITE_GOOGLE_CLIENT_ID` with the shared client configured for the approved production origins.
 - Rebuilt and restarted the mobile Docker image because the Next.js public client ID is baked into the bundle.
 - Verified mobile health remains `{"ok":true,"version":"0.2.1"}`. Secrets remain outside Git.
+
+## 2026-09-06 — Kasuki Assistant release-candidate-1.1 deployment
+
+- Verified tag/branch `release-candidate-1.1` at commit `9815eaaaa6d90ae0c58664f6f56b7ca777728ca1`.
+- Backed up the prior application tree as `/home/deploy/apps/kasuki-super8.before-rc11-20260906020222`.
+- Preserved the server-side `.env` and live `data/` directory; `.env` remains mode `600`.
+- Built and restarted the Docker Compose service on `127.0.0.1:8510`.
+- Verified local and public HTTPS health: `{"ok":true,"version":"0.9.1-rc.1","debug":false}`.
+- Verified `kasuki-s8.mysuki.io` continues to return HTTP 200 with its existing TLS certificate.
+- Build reported one moderate npm audit finding; dependencies were not automatically changed.
