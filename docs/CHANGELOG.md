@@ -34,3 +34,15 @@
 - Issued a Let's Encrypt ECDSA certificate covering both hostnames; expiry is 2026-12-04.
 - Enabled HTTP-to-HTTPS redirects and verified the public app and `/api/health` over HTTPS.
 - Verified the Certbot renewal timer is enabled.
+
+## 2026-09-06 — Super8 Mobile release-candidate deployment
+
+- Verified tag `release-candidate-1` at commit `db421fcb1ac2660180edf540ff4871cebba135f8`.
+- Deployed the Next.js app to `/home/deploy/apps/super8-mobile`.
+- Corrected one malformed comment marker in the supplied env file; retained the original as a root-owned backup.
+- Installed the supplied environment outside Git with mode `600`.
+- Built the Docker image with zero npm vulnerabilities reported and started the app on private port `127.0.0.1:8513`.
+- Verified local health response: `{"ok":true,"version":"0.2.1"}`.
+- Configured nginx for `kasuki-s8-mobile.mysuki.io`.
+- Issued a Let's Encrypt ECDSA certificate; expiry is 2026-12-05.
+- Verified public HTTPS, HTTP-to-HTTPS redirect, and `/api/health`.
