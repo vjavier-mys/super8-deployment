@@ -124,3 +124,12 @@
 - Configured nginx and issued a Let’s Encrypt certificate with HTTP-to-HTTPS redirect.
 - Verified public health `{"ok":true,"version":"0.3.0-rc1"}`, HTTPS status `200`, and no restart loop.
 - Confirmed Assistant `8510`, Mobile `8513`, existing portal `8512`, and new Portal `8514` are separate running services.
+
+## 2026-09-06 — Kasuki S8 Portal production deployment
+
+- Deployed the same verified commit `95617a470edc7f1013d319e4408cc217a5b1e0d2` (`0.3.0-rc1`) to droplet3.
+- Installed `/home/deploy/dropbox/env_production` as `/home/deploy/apps/kasuki-s8-portal/.env` with mode `600` and owner `deploy:deploy`.
+- Configured the production Compose project/container `kasuki-s8-portal` on `127.0.0.1:8514`.
+- Created the compatibility Docker network required by the Compose file; production API/auth services remain remote HTTPS endpoints.
+- Configured `kasuki-s8-portal.mysuki.io` in nginx and issued a Let’s Encrypt certificate.
+- Verified public health `{"ok":true,"version":"0.3.0-rc1"}`, HTTPS status `200`, HTTP-to-HTTPS redirect, and existing Assistant/Mobile services remained healthy.
