@@ -1,55 +1,37 @@
-# ubuntu3 infrastructure
+# Super8 Deployment Infrastructure
 
-Infrastructure and operational notes for `ubuntu3` (`droplet3.mysuki.net`).
+Operational documentation for the two production applications hosted on the Ubuntu server `ubuntu3`.
 
-## Repository rules
+## Choose an application
 
-- Never commit private keys, tokens, passwords, `.env` files, or provider credentials.
-- Record infrastructure changes and verification results in `docs/CHANGELOG.md`.
-- Keep application source and application secrets separate from this repository.
+- [Kasuki Super8 Assistant](docs/kasuki-super8-assistant/README.md)
+- [Kasuki Super8 Mobile](docs/super8-mobile/README.md)
+- [Shared server, security, DNS, TLS, and recovery runbook](docs/OPERATIONS.md)
+- [Combined deployment history](docs/CHANGELOG.md)
 
-## Current server
+## Current production map
 
-- Provider: DigitalOcean
-- Droplet: `ubuntu3`
-- Region: Singapore (`sgp1`)
-- OS: Ubuntu 24.04 LTS
-- Size: 1 vCPU / 2 GB RAM / 50 GB disk
-- Public hostname: `droplet3.mysuki.net`
-- Reverse proxy: nginx
-- Container runtime: Docker Engine + Compose plugin
+| Application | Repository | Production URL | Server path | Private port |
+|---|---|---|---|---:|
+| Kasuki Super8 Assistant | `My-Suki/kasuki-super8` | `https://kasuki-s8.mysuki.io` | `/home/deploy/apps/kasuki-super8` | `8510` |
+| Kasuki Super8 Mobile | `My-Suki/super8-mobile` | `https://kasuki-s8-mobile.mysuki.io` | `/home/deploy/apps/super8-mobile` | `8513` |
 
-## Planned next steps
+Both services run on the same DigitalOcean droplet and are exposed publicly only through nginx over HTTPS. Docker publishes each application on localhost; the application ports are not directly exposed to the Internet.
 
-- Add Victor's personal SSH public key to `/home/deploy/.ssh/authorized_keys`.
-- Reboot during an approved maintenance window to load the updated kernel.
-- Configure the application-specific nginx upstream and proxy rules.
-- Issue and verify a Let's Encrypt certificate for `droplet3.mysuki.net`.
-- Add deployment instructions after the Node application is available.
+## Repository safety rules
 
-## Manual laptop deployment
+- Never commit private keys, tokens, passwords, `.env` files, provider credentials, or MongoDB connection strings.
+- Production environment files remain on the server and are installed with mode `600`.
+- Keep application source repositories separate from this infrastructure repository.
+- Record operational changes in the combined `docs/CHANGELOG.md`.
+- Use a dedicated SSH key for each purpose: server access, GitHub repository access, and CI/CD.
 
-The reusable deployment script is `scripts/deploy-kasuki.sh`. It is intended to run from a checked-out copy of the application repository on Victor's laptop.
+## Local repository
 
-Prerequisites:
+This repository is intended to be cloned by an operator with access to:
 
-- SSH access to the server as `deploy` using a personal laptop key.
-- The application repository checked out locally.
-- Docker Compose available on the server (already installed).
-- The server-side `/home/deploy/apps/kasuki-super8/.env` remains in place; it is never copied from Git or committed.
-
-Example:
-
-```bash
-chmod +x scripts/deploy-kasuki.sh
-export DEPLOY_SSH_KEY="$HOME/.ssh/ubuntu3_deploy"
-./scripts/deploy-kasuki.sh release-candidate-1
+```text
+git@github.com:vjavier-mys/super8-deployment.git
 ```
 
-The script archives the selected Git commit, uploads it over SSH, builds the Docker image, starts the same Compose project, checks `/api/health`, and records the deployed commit in `CURRENT_RELEASE`. Releases are stored under `/home/deploy/apps/kasuki-super8/releases/` for rollback. It does not modify nginx or copy secrets.
-
-GitHub Actions deployment can be added later using a separate encrypted SSH key and repository secrets; do not put the production `.env` in GitHub Actions or the application repository.
-
-## Remote repository
-
-No Git remote is configured yet. Add the remote only after the destination repository is supplied and approved.
+The deployment scripts in `scripts/` are reference implementations. They never copy production secrets from Git.
