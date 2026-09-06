@@ -92,6 +92,14 @@
 - Expanded the Mobile staging certificate to cover `super8.mysuki.net` and `kasuki-s8-mobile.mysuki.net`.
 - Verified both public HTTPS health endpoints, HTTP-to-HTTPS redirects, nginx syntax, and running containers.
 
+## 2026-09-06 — Super8 Mobile staging redeployment (`release-candidate-1.1`)
+
+- Verified the repository tag `release-candidate-1.1` resolves to commit `216f1c04149cc2f17b69a36364514f83602f15af`.
+- Replaced the staging Mobile source on droplet2 at `/home/deploy/apps/super8-mobile`; the previous tree was retained as a timestamped backup.
+- Preserved the staging `.env` with mode `600` and owner `deploy:deploy`.
+- Rebuilt and restarted the Compose project on `127.0.0.1:8513`.
+- Verified version `0.2.1-rc.1`, local/public health, HTTPS status `200`, HTTP-to-HTTPS redirect, and container restart count `0`.
+
 ## 2026-09-06 — Victor deploy-user SSH key
 
 - Installed the same Victor-supplied public key in `/home/deploy/.ssh/authorized_keys`.
