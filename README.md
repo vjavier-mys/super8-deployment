@@ -17,6 +17,7 @@ Operational documentation for the two production applications hosted on the Ubun
 | Production | Kasuki Super8 Mobile | `My-Suki/super8-mobile` | `https://kasuki-s8-mobile.mysuki.io` | `ubuntu3` / `168.144.110.200` | `/home/deploy/apps/super8-mobile` | `8513` |
 | Staging | Kasuki Super8 Assistant | `My-Suki/kasuki-super8` | `https://kasuki-s8.mysuki.net` | `ubuntu-02` / `206.189.38.17` | `/home/deploy/apps/kasuki-super8` | `8510` |
 | Staging | Kasuki Super8 Mobile | `My-Suki/super8-mobile` | `https://kasuki-s8-mobile.mysuki.net` | `ubuntu-02` / `206.189.38.17` | `/home/deploy/apps/super8-mobile` | `8513` |
+| Staging | Kasuki S8 Portal | `My-Suki/kasuki-portal-super8-edition` | `https://kasuki-s8-portal.mysuki.net` | `ubuntu-02` / `206.189.38.17` | `/home/deploy/apps/kasuki-s8-portal` | `8514` |
 
 The `.io` domains are production and the `.net` domains are staging. All services are exposed publicly only through nginx over HTTPS. Docker publishes each application on localhost; the application ports are not directly exposed to the Internet.
 

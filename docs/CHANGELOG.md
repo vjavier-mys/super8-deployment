@@ -105,3 +105,22 @@
 - Installed the same Victor-supplied public key in `/home/deploy/.ssh/authorized_keys`.
 - Preserved key-only access and verified the authorized-keys file is owned by `deploy:deploy` with mode `600`.
 - Validated the SSH configuration after the change; no private key was handled.
+
+## 2026-09-06 — Enable real SMS OTP on production Mobile
+
+- Investigated missing OTP reports on droplet3.
+- Found the Mobile app logging `[mock SMS]` because `USE_MOCK` was absent; the code treats any value other than `false` as mock mode.
+- Set `USE_MOCK=false` in `/home/deploy/apps/super8-mobile/.env` on droplet3, preserving mode `600` and owner `deploy:deploy`.
+- Recreated the container and verified `USE_MOCK=false`, health `ok`, and restart count `0`.
+- No secret values or OTP contents were recorded.
+
+## 2026-09-06 — Kasuki S8 Portal staging deployment
+
+- Verified repository `My-Suki/kasuki-portal-super8-edition` main commit `95617a470edc7f1013d319e4408cc217a5b1e0d2`, version `0.3.0-rc1`.
+- Deployed as a separate application at `/home/deploy/apps/kasuki-s8-portal`; the existing `/opt/apps/kasuki-portal` deployment was not modified.
+- Installed the provided staging env as `.env` with mode `600` and owner `deploy:deploy`.
+- Configured the new Compose project/container as `kasuki-s8-portal` on `127.0.0.1:8514`.
+- Created `kasuki-s8-portal.mysuki.net` DNS pointing to `206.189.38.17`.
+- Configured nginx and issued a Let’s Encrypt certificate with HTTP-to-HTTPS redirect.
+- Verified public health `{"ok":true,"version":"0.3.0-rc1"}`, HTTPS status `200`, and no restart loop.
+- Confirmed Assistant `8510`, Mobile `8513`, existing portal `8512`, and new Portal `8514` are separate running services.
