@@ -54,6 +54,15 @@
 - Rebuilt and restarted the mobile Docker image because the Next.js public client ID is baked into the bundle.
 - Verified mobile health remains `{"ok":true,"version":"0.2.1"}`. Secrets remain outside Git.
 
+## 2026-09-06 — Super8 Mobile release-candidate-1 redeployment
+
+- Verified tag `release-candidate-1` at commit `db421fcb1ac2660180edf540ff4871cebba135f8`.
+- Backed up the previous app tree as `/home/deploy/apps/super8-mobile.before-mobile-rc1-20260906021019`.
+- Preserved the production `.env` at mode `600` and redeployed the source separately from Kasuki Assistant.
+- Rebuilt/verified the Docker Compose service on `127.0.0.1:8513`.
+- Verified local and public HTTPS health: `{"ok":true,"version":"0.2.1"}`.
+- Verified `kasuki-s8-mobile.mysuki.io` continues to return HTTP 200 with its existing TLS certificate.
+
 ## 2026-09-06 — Kasuki Assistant release-candidate-1.1 deployment
 
 - Verified tag/branch `release-candidate-1.1` at commit `9815eaaaa6d90ae0c58664f6f56b7ca777728ca1`.
