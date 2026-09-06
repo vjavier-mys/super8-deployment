@@ -80,3 +80,9 @@
 - Updated `AllowUsers` to permit only `deploy` and root key authentication.
 - Validated `sshd -t`, reloaded SSH, and verified the existing `deploy` key login still works.
 - The matching private key remains on Victor's laptop and was never requested or handled by Hermes.
+
+## 2026-09-06 — Victor deploy-user SSH key
+
+- Installed the same Victor-supplied public key in `/home/deploy/.ssh/authorized_keys`.
+- Preserved key-only access and verified the authorized-keys file is owned by `deploy:deploy` with mode `600`.
+- Validated the SSH configuration after the change; no private key was handled.
