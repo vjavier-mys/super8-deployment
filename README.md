@@ -9,14 +9,16 @@ Operational documentation for the two production applications hosted on the Ubun
 - [Shared server, security, DNS, TLS, and recovery runbook](docs/OPERATIONS.md)
 - [Combined deployment history](docs/CHANGELOG.md)
 
-## Current production map
+## Current deployment map
 
-| Application | Repository | Production URL | Server path | Private port |
-|---|---|---|---|---:|
-| Kasuki Super8 Assistant | `My-Suki/kasuki-super8` | `https://kasuki-s8.mysuki.io` | `/home/deploy/apps/kasuki-super8` | `8510` |
-| Kasuki Super8 Mobile | `My-Suki/super8-mobile` | `https://kasuki-s8-mobile.mysuki.io` | `/home/deploy/apps/super8-mobile` | `8513` |
+| Environment | Application | Repository | URL | Server | App path | Private port |
+|---|---|---|---|---|---|---:|
+| Production | Kasuki Super8 Assistant | `My-Suki/kasuki-super8` | `https://kasuki-s8.mysuki.io` | `ubuntu3` / `168.144.110.200` | `/home/deploy/apps/kasuki-super8` | `8510` |
+| Production | Kasuki Super8 Mobile | `My-Suki/super8-mobile` | `https://kasuki-s8-mobile.mysuki.io` | `ubuntu3` / `168.144.110.200` | `/home/deploy/apps/super8-mobile` | `8513` |
+| Staging | Kasuki Super8 Assistant | `My-Suki/kasuki-super8` | `https://kasuki-s8.mysuki.net` | `ubuntu-02` / `206.189.38.17` | `/home/deploy/apps/kasuki-super8` | `8510` |
+| Staging | Kasuki Super8 Mobile | `My-Suki/super8-mobile` | `https://kasuki-s8-mobile.mysuki.net` | `ubuntu-02` / `206.189.38.17` | `/home/deploy/apps/super8-mobile` | `8513` |
 
-Both services run on the same DigitalOcean droplet and are exposed publicly only through nginx over HTTPS. Docker publishes each application on localhost; the application ports are not directly exposed to the Internet.
+The `.io` domains are production and the `.net` domains are staging. All services are exposed publicly only through nginx over HTTPS. Docker publishes each application on localhost; the application ports are not directly exposed to the Internet.
 
 ## Repository safety rules
 

@@ -16,6 +16,8 @@ This document covers the infrastructure shared by Kasuki Super8 Assistant and Ka
 | SSH user | `deploy` |
 | SSH access | Key-only; root key exception enabled, root password login disabled |
 
+The staging droplet is `ubuntu-02` (`droplet2.mysuki.net`, `206.189.38.17`), also running Ubuntu 24.04 with 1 vCPU and 2 GB RAM. It hosts the same two applications on the same private ports under separate Compose projects.
+
 The `deploy` account has a locked password, belongs to the Docker group, and has passwordless sudo for automation. Password SSH remains disabled; root access is restricted to the explicitly authorized public key.
 
 ## 2. Required server packages

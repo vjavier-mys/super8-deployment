@@ -81,6 +81,17 @@
 - Validated `sshd -t`, reloaded SSH, and verified the existing `deploy` key login still works.
 - The matching private key remains on Victor's laptop and was never requested or handled by Hermes.
 
+## 2026-09-06 — Staging deployment on droplet2
+
+- Verified `ubuntu-02` at `206.189.38.17` and established root access using the approved Hermes key.
+- Applied the Ubuntu 24.04 staging baseline: package updates, Docker/Compose, nginx, Certbot, UFW, fail2ban, unattended upgrades, 2 GiB swap, and key-only `deploy` access.
+- Deployed Kasuki Assistant commit `9815eaaaa6d90ae0c58664f6f56b7ca777728ca1` to `/home/deploy/apps/kasuki-super8` on `127.0.0.1:8510`.
+- Deployed Super8 Mobile commit `db421fcb1ac2660180edf540ff4871cebba135f8` to `/home/deploy/apps/super8-mobile` on `127.0.0.1:8513`.
+- Installed both staging env files with mode `600`; no secret values were printed or committed.
+- Configured staging DNS and HTTPS: `kasuki-s8.mysuki.net` and `kasuki-s8-mobile.mysuki.net` point to `206.189.38.17`.
+- Expanded the Mobile staging certificate to cover `super8.mysuki.net` and `kasuki-s8-mobile.mysuki.net`.
+- Verified both public HTTPS health endpoints, HTTP-to-HTTPS redirects, nginx syntax, and running containers.
+
 ## 2026-09-06 — Victor deploy-user SSH key
 
 - Installed the same Victor-supplied public key in `/home/deploy/.ssh/authorized_keys`.
