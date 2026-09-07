@@ -37,6 +37,17 @@ DEPLOY_SSH_KEY="$HOME/.ssh/droplet-admin" \
 
 The target server must already have `/home/deploy/apps/kasuki-s8-portal/.env` with mode `600`.
 
+## Server-side staging deployment
+
+Droplet2 has a staging-only script that can be run directly as `deploy`:
+
+```bash
+ssh deploy@droplet2.mysuki.net
+/home/deploy/scripts/deploy-staging.sh portal release-candidate-1
+```
+
+It clones/fetches the selected ref into `/home/deploy/deploy-checkouts/`, keeps GitHub keys under `/home/deploy/.ssh/` with mode `600`, preserves the application `.env` and data, backs up the current deployment, rebuilds, health-checks, and rolls back on failure. Use `DRY_RUN=1` before a real deployment.
+
 ## Runtime env-only restart
 
 For changes to runtime environment values without a code rebuild:
