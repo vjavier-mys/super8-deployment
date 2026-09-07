@@ -70,6 +70,26 @@ Revert to a specific older backup:
 
 The rollback preserves the current `.env` and `data/`, keeps the replaced version in the numbered backup rotation, verifies health, and restores the replaced version automatically if rollback fails.
 
+## Server-side production deployment
+
+Droplet3 has matching production-only scripts that run directly as `deploy`:
+
+```bash
+ssh deploy@droplet3.mysuki.net
+DRY_RUN=1 /home/deploy/scripts/deploy-production.sh portal release-candidate-1
+/home/deploy/scripts/deploy-production.sh portal release-candidate-1
+```
+
+Production rollback uses the same numbered backup workflow:
+
+```bash
+/home/deploy/scripts/revert-production.sh --list portal
+/home/deploy/scripts/revert-production.sh portal
+/home/deploy/scripts/revert-production.sh portal 2
+```
+
+The production scripts are hostname-guarded and will refuse to run anywhere except droplet3 (`ubuntu3`).
+
 ## Runtime env-only restart
 
 For changes to runtime environment values without a code rebuild:

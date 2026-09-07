@@ -142,3 +142,4 @@
 - Added `/home/deploy/scripts/deploy-staging.sh` to droplet2 for direct `deploy`-user staging deployments, with repository-specific read-only GitHub keys and a successful Portal tag dry-run.
 - Added `/home/deploy/scripts/revert-staging.sh` with numbered `backup1`/`backup2`/`backup3` selection, automatic default to the previous version, env/data preservation, health verification, and automatic recovery if rollback fails.
 - Migrated the existing Portal baseline to `kasuki-s8-portal.backup1-95617a470edc7f1013d319e4408cc217a5b1e0d2`.
+- Added matching hostname-guarded production scripts on droplet3: `/home/deploy/scripts/deploy-production.sh` and `/home/deploy/scripts/revert-production.sh`, with baseline backup1 snapshots for all three production apps and successful Portal dry-run verification.
