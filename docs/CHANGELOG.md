@@ -140,3 +140,5 @@
 - The script verifies the expected repository and remote ref, archives source without `.git` or local env files, preserves server `.env` and application data, creates a backup, rebuilds/recreates the correct Compose project, verifies health, and rolls back on failure.
 - Added dry-run support with `DRY_RUN=1`; DNS, nginx, and certificates remain outside the script’s scope.
 - Added `/home/deploy/scripts/deploy-staging.sh` to droplet2 for direct `deploy`-user staging deployments, with repository-specific read-only GitHub keys and a successful Portal tag dry-run.
+- Added `/home/deploy/scripts/revert-staging.sh` with explicit confirmation, backup listing, env/data preservation, health verification, and automatic recovery if rollback fails.
+- Created a protected baseline backup of the current droplet2 Portal deployment before enabling the rollback workflow.

@@ -48,6 +48,29 @@ ssh deploy@droplet2.mysuki.net
 
 It clones/fetches the selected ref into `/home/deploy/deploy-checkouts/`, keeps GitHub keys under `/home/deploy/.ssh/` with mode `600`, preserves the application `.env` and data, backs up the current deployment, rebuilds, health-checks, and rolls back on failure. Use `DRY_RUN=1` before a real deployment.
 
+## Safe rollback
+
+List available staging backups:
+
+```bash
+/home/deploy/scripts/revert-staging.sh --list portal
+```
+
+Revert to the newest backup after reviewing the list:
+
+```bash
+CONFIRM_REVERT=1 /home/deploy/scripts/revert-staging.sh portal
+```
+
+Or specify an exact backup directory:
+
+```bash
+CONFIRM_REVERT=1 /home/deploy/scripts/revert-staging.sh portal \
+  /home/deploy/apps/kasuki-s8-portal.before-baseline-YYYYMMDDHHMMSS
+```
+
+The rollback preserves the current `.env` and `data/`, never deletes backups, verifies health, and restores the current version automatically if the rollback fails.
+
 ## Runtime env-only restart
 
 For changes to runtime environment values without a code rebuild:
