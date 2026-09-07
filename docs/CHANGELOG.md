@@ -133,3 +133,9 @@
 - Created the compatibility Docker network required by the Compose file; production API/auth services remain remote HTTPS endpoints.
 - Configured `kasuki-s8-portal.mysuki.io` in nginx and issued a Let’s Encrypt certificate.
 - Verified public health `{"ok":true,"version":"0.3.0-rc1"}`, HTTPS status `200`, HTTP-to-HTTPS redirect, and existing Assistant/Mobile services remained healthy.
+
+## 2026-09-06 — Unified manual deployment script
+
+- Added `scripts/deploy-super8.sh` for manual branch/tag deployments of Assistant, Mobile, or Portal to staging or production.
+- The script verifies the expected repository and remote ref, archives source without `.git` or local env files, preserves server `.env` and application data, creates a backup, rebuilds/recreates the correct Compose project, verifies health, and rolls back on failure.
+- Added dry-run support with `DRY_RUN=1`; DNS, nginx, and certificates remain outside the script’s scope.
