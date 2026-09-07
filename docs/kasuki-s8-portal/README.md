@@ -46,7 +46,7 @@ ssh deploy@droplet2.mysuki.net
 /home/deploy/scripts/deploy-staging.sh portal release-candidate-1
 ```
 
-It clones/fetches the selected ref into `/home/deploy/deploy-checkouts/`, keeps GitHub keys under `/home/deploy/.ssh/` with mode `600`, preserves the application `.env` and data, backs up the current deployment, rebuilds, health-checks, and rolls back on failure. Use `DRY_RUN=1` before a real deployment.
+It clones/fetches the selected ref into `/home/deploy/deploy-checkouts/`, keeps GitHub keys under `/home/deploy/.ssh/` with mode `600`, preserves the application `.env` and data, rotates the current deployment into `backup1`, shifts older backups through `backup2` and `backup3`, rebuilds, and health-checks. Use `DRY_RUN=1` before a real deployment.
 
 ## Safe rollback
 
@@ -56,20 +56,19 @@ List available staging backups:
 /home/deploy/scripts/revert-staging.sh --list portal
 ```
 
-Revert to the newest backup after reviewing the list:
+Revert to `backup1`, the previous version:
 
 ```bash
-CONFIRM_REVERT=1 /home/deploy/scripts/revert-staging.sh portal
+/home/deploy/scripts/revert-staging.sh portal
 ```
 
-Or specify an exact backup directory:
+Revert to a specific older backup:
 
 ```bash
-CONFIRM_REVERT=1 /home/deploy/scripts/revert-staging.sh portal \
-  /home/deploy/apps/kasuki-s8-portal.before-baseline-YYYYMMDDHHMMSS
+/home/deploy/scripts/revert-staging.sh portal 2
 ```
 
-The rollback preserves the current `.env` and `data/`, never deletes backups, verifies health, and restores the current version automatically if the rollback fails.
+The rollback preserves the current `.env` and `data/`, keeps the replaced version in the numbered backup rotation, verifies health, and restores the replaced version automatically if rollback fails.
 
 ## Runtime env-only restart
 
