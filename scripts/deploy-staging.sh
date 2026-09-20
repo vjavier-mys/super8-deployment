@@ -13,11 +13,13 @@ Apps:
   assistant   My-Suki/kasuki-super8       port 8510
   mobile      My-Suki/super8-mobile      port 8513
   portal      My-Suki/kasuki-portal-super8-edition  port 8514
+  upload      vjavier-mys/kasuki-super8-uploader-api port 8515
 
 Examples:
   deploy-staging.sh assistant release-candidate-1.1
   deploy-staging.sh mobile release-candidate-1.1
   deploy-staging.sh portal main
+  deploy-staging.sh upload main
 
 Optional:
   DRY_RUN=1 deploy-staging.sh portal main
@@ -53,6 +55,14 @@ case "$APP" in
     CHECKOUT='/home/deploy/deploy-checkouts/kasuki-portal-super8-edition'
     PROJECT='kasuki-s8-portal'
     PORT='8514'
+    ;;
+  upload)
+    REPO='git@github.com:vjavier-mys/kasuki-super8-uploader-api.git'
+    GIT_KEY='/home/deploy/.ssh/github-kasuki-upload-api'
+    BASE='/home/deploy/apps/kasuki-upload-api'
+    CHECKOUT='/home/deploy/deploy-checkouts/kasuki-upload-api'
+    PROJECT='kasuki-upload-api'
+    PORT='8515'
     ;;
   *) echo "Unknown app: $APP" >&2; usage ;;
 esac

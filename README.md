@@ -7,6 +7,7 @@ Operational documentation for the two production applications hosted on the Ubun
 - [Kasuki Super8 Assistant](docs/kasuki-super8-assistant/README.md)
 - [Kasuki Super8 Mobile](docs/super8-mobile/README.md)
 - [Kasuki S8 Portal](docs/kasuki-s8-portal/README.md)
+- [Kasuki Upload API](docs/kasuki-upload-api/README.md)
 - [Shared server, security, DNS, TLS, and recovery runbook](docs/OPERATIONS.md)
 - [Combined deployment history](docs/CHANGELOG.md)
 
@@ -20,6 +21,7 @@ Operational documentation for the two production applications hosted on the Ubun
 | Staging | Kasuki Super8 Assistant | `My-Suki/kasuki-super8` | `https://kasuki-s8.mysuki.net` | `ubuntu-02` / `206.189.38.17` | `/home/deploy/apps/kasuki-super8` | `8510` |
 | Staging | Kasuki Super8 Mobile | `My-Suki/super8-mobile` | `https://kasuki-s8-mobile.mysuki.net` | `ubuntu-02` / `206.189.38.17` | `/home/deploy/apps/super8-mobile` | `8513` |
 | Staging | Kasuki S8 Portal | `My-Suki/kasuki-portal-super8-edition` | `https://kasuki-s8-portal.mysuki.net` | `ubuntu-02` / `206.189.38.17` | `/home/deploy/apps/kasuki-s8-portal` | `8514` |
+| Staging | Kasuki Upload API | `vjavier-mys/kasuki-super8-uploader-api` | `https://kasuki-upload-api.mysuki.net` | `ubuntu-02` / `206.189.38.17` | `/home/deploy/apps/kasuki-upload-api` | `8515` |
 
 The `.io` domains are production and the `.net` domains are staging. All services are exposed publicly only through nginx over HTTPS. Docker publishes each application on localhost; the application ports are not directly exposed to the Internet.
 

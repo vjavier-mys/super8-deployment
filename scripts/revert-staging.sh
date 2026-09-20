@@ -18,6 +18,7 @@ Apps:
   assistant   /home/deploy/apps/kasuki-super8       port 8510
   mobile      /home/deploy/apps/super8-mobile      port 8513
   portal      /home/deploy/apps/kasuki-s8-portal    port 8514
+  upload      /home/deploy/apps/kasuki-upload-api    port 8515
 
 Examples:
   revert-staging.sh --list portal
@@ -37,6 +38,7 @@ case "$APP" in
   assistant) BASE='/home/deploy/apps/kasuki-super8'; PROJECT='kasuki-super8'; PORT=8510 ;;
   mobile) BASE='/home/deploy/apps/super8-mobile'; PROJECT='super8-mobile'; PORT=8513 ;;
   portal) BASE='/home/deploy/apps/kasuki-s8-portal'; PROJECT='kasuki-s8-portal'; PORT=8514 ;;
+  upload) BASE='/home/deploy/apps/kasuki-upload-api'; PROJECT='kasuki-upload-api'; PORT=8515 ;;
   *) echo "Unknown app: $APP" >&2; usage ;;
 esac
 
