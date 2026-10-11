@@ -14,12 +14,14 @@ Apps:
   mobile      My-Suki/super8-mobile      port 8513
   portal      My-Suki/kasuki-portal-super8-edition  port 8514
   upload      vjavier-mys/kasuki-super8-uploader-api port 8515
+  evaluator   My-Suki/kasuki-evaluator          port 8517
 
 Examples:
   deploy-staging.sh assistant release-candidate-1.1
   deploy-staging.sh mobile release-candidate-1.1
   deploy-staging.sh portal main
   deploy-staging.sh upload main
+  deploy-staging.sh evaluator main
 
 Optional:
   DRY_RUN=1 deploy-staging.sh portal main
@@ -64,6 +66,15 @@ case "$APP" in
     PROJECT='kasuki-upload-api'
     PORT='8515'
     ;;
+  evaluator)
+    REPO='git@github.com:My-Suki/kasuki-evaluator.git'
+    GIT_KEY='/home/deploy/.ssh/github-kasuki-evaluator'
+    BASE='/home/deploy/apps/kasuki-evaluator'
+    CHECKOUT='/home/deploy/deploy-checkouts/kasuki-evaluator'
+    PROJECT='kasuki-evaluator'
+    PORT='8517'
+    TEMPLATE_DIR='/home/deploy/deploy-templates/kasuki-evaluator'
+    ;;
   *) echo "Unknown app: $APP" >&2; usage ;;
 esac
 
@@ -99,6 +110,10 @@ echo "app=$APP ref=$REF commit=$COMMIT port=$PORT"
 rm -rf "$INCOMING"
 mkdir -p "$INCOMING"
 git archive --format=tar "$COMMIT" | tar -xf - -C "$INCOMING"
+if [[ "$APP" == evaluator ]]; then
+  [[ -d "$TEMPLATE_DIR" ]] || { echo "Deployment template not found: $TEMPLATE_DIR" >&2; exit 1; }
+  cp "$TEMPLATE_DIR/Dockerfile" "$TEMPLATE_DIR/docker-compose.yml" "$INCOMING/"
+fi
 test -f "$BASE/.env"
 cp "$BASE/.env" "$INCOMING/.env"
 chmod 600 "$INCOMING/.env"

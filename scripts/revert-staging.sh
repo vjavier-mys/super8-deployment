@@ -19,6 +19,7 @@ Apps:
   mobile      /home/deploy/apps/super8-mobile      port 8513
   portal      /home/deploy/apps/kasuki-s8-portal    port 8514
   upload      /home/deploy/apps/kasuki-upload-api    port 8515
+  evaluator   /home/deploy/apps/kasuki-evaluator    port 8517
 
 Examples:
   revert-staging.sh --list portal
@@ -39,6 +40,7 @@ case "$APP" in
   mobile) BASE='/home/deploy/apps/super8-mobile'; PROJECT='super8-mobile'; PORT=8513 ;;
   portal) BASE='/home/deploy/apps/kasuki-s8-portal'; PROJECT='kasuki-s8-portal'; PORT=8514 ;;
   upload) BASE='/home/deploy/apps/kasuki-upload-api'; PROJECT='kasuki-upload-api'; PORT=8515 ;;
+  evaluator) BASE='/home/deploy/apps/kasuki-evaluator'; PROJECT='kasuki-evaluator'; PORT=8517 ;;
   *) echo "Unknown app: $APP" >&2; usage ;;
 esac
 

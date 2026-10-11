@@ -1,0 +1,13 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        VITE_GOOGLE_CLIENT_ID: ${VITE_GOOGLE_CLIENT_ID}
+        VITE_VENDOR_NAME: ${VITE_VENDOR_NAME:-Kasuki}
+        VITE_APP_STAGE: ${VITE_APP_STAGE:-staging}
+    env_file:
+      - .env
+    ports:
+      - "127.0.0.1:8517:3002"
+    restart: unless-stopped
