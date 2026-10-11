@@ -142,5 +142,15 @@
 - Added `/home/deploy/scripts/deploy-staging.sh` to droplet2 for direct `deploy`-user staging deployments, with repository-specific read-only GitHub keys and a successful Portal tag dry-run.
 - Added `/home/deploy/scripts/revert-staging.sh` with numbered `backup1`/`backup2`/`backup3` selection, automatic default to the previous version, env/data preservation, health verification, and automatic recovery if rollback fails.
 - Migrated the existing Portal baseline to `kasuki-s8-portal.backup1-95617a470edc7f1013d319e4408cc217a5b1e0d2`.
+
+## 2026-10-05 — Kasuki Evaluator staging deployment
+
+- Verified private repository `My-Suki/kasuki-evaluator.git`, main commit `82ed4dec8e0a92820585ef5d27b2c249231d72fa`.
+- Deployed to droplet2 as `/home/deploy/apps/kasuki-evaluator` using Compose project `kasuki-evaluator` on `127.0.0.1:8517`.
+- Installed the staging env with mode `600`; secret contents were not displayed or committed.
+- Added infrastructure-owned Docker templates because the application repository does not include Docker deployment files.
+- Verified health `{"ok":true,"version":"0.1.0","app":"kasuki-evaluator","databricksConfigured":true}`.
+- Added `evaluator` support to the droplet2 deploy/revert scripts and created baseline `backup1`.
+- Public DNS, nginx, and TLS remain pending until DigitalOcean API credentials are restored.
 - Added matching hostname-guarded production scripts on droplet3: `/home/deploy/scripts/deploy-production.sh` and `/home/deploy/scripts/revert-production.sh`, with baseline backup1 snapshots for all three production apps and successful Portal dry-run verification.
 - Added the staging-only Kasuki Upload API (`vjavier-mys/kasuki-super8-uploader-api`) to the droplet2 deploy/revert scripts as `upload`, using port `8515`, the dedicated read-only GitHub key, numbered backups, and a successful `DRY_RUN=1 ... upload main` verification.

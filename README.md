@@ -8,6 +8,7 @@ Operational documentation for the two production applications hosted on the Ubun
 - [Kasuki Super8 Mobile](docs/super8-mobile/README.md)
 - [Kasuki S8 Portal](docs/kasuki-s8-portal/README.md)
 - [Kasuki Upload API](docs/kasuki-upload-api/README.md)
+- [Kasuki Evaluator](docs/kasuki-evaluator/README.md)
 - [Shared server, security, DNS, TLS, and recovery runbook](docs/OPERATIONS.md)
 - [Combined deployment history](docs/CHANGELOG.md)
 
