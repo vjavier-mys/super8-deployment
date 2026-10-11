@@ -43,4 +43,13 @@ The current baseline is retained as:
 
 ## Public access
 
-DNS and nginx/Let's Encrypt configuration are not included in the initial app deployment. The intended public URL is `https://kasuki-evaluator.mysuki.net` after the DNS credential is restored and the record is created.
+The app is available at:
+
+```text
+https://kasuki-evaluator.mysuki.net
+```
+
+- DNS A record points to `206.189.38.17`.
+- nginx proxies the hostname to `127.0.0.1:8517`.
+- HTTP redirects to HTTPS.
+- Let’s Encrypt certificate is valid through `2027-01-09` and automatic renewal is enabled.

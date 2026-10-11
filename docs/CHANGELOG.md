@@ -151,6 +151,11 @@
 - Added infrastructure-owned Docker templates because the application repository does not include Docker deployment files.
 - Verified health `{"ok":true,"version":"0.1.0","app":"kasuki-evaluator","databricksConfigured":true}`.
 - Added `evaluator` support to the droplet2 deploy/revert scripts and created baseline `backup1`.
-- Public DNS, nginx, and TLS remain pending until DigitalOcean API credentials are restored.
+
+## 2026-10-11 — Kasuki Evaluator public staging access
+
+- Created nginx site `kasuki-evaluator.mysuki.net` proxying to `127.0.0.1:8517`.
+- Issued and deployed a Let’s Encrypt certificate for `kasuki-evaluator.mysuki.net`, valid through `2027-01-09`; automatic renewal is enabled.
+- Verified nginx configuration, HTTP-to-HTTPS redirect, HTTPS root status `200`, and public `/api/health`.
 - Added matching hostname-guarded production scripts on droplet3: `/home/deploy/scripts/deploy-production.sh` and `/home/deploy/scripts/revert-production.sh`, with baseline backup1 snapshots for all three production apps and successful Portal dry-run verification.
 - Added the staging-only Kasuki Upload API (`vjavier-mys/kasuki-super8-uploader-api`) to the droplet2 deploy/revert scripts as `upload`, using port `8515`, the dedicated read-only GitHub key, numbered backups, and a successful `DRY_RUN=1 ... upload main` verification.
