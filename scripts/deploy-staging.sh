@@ -15,6 +15,7 @@ Apps:
   portal      My-Suki/kasuki-portal-super8-edition  port 8514
   upload      vjavier-mys/kasuki-super8-uploader-api port 8515
   evaluator   My-Suki/kasuki-evaluator          port 8517
+  salesman    My-Suki/kasuki-salesman           port 8516
 
 Examples:
   deploy-staging.sh assistant release-candidate-1.1
@@ -22,6 +23,7 @@ Examples:
   deploy-staging.sh portal main
   deploy-staging.sh upload main
   deploy-staging.sh evaluator main
+  deploy-staging.sh salesman v0.3
 
 Optional:
   DRY_RUN=1 deploy-staging.sh portal main
@@ -75,6 +77,14 @@ case "$APP" in
     PORT='8517'
     TEMPLATE_DIR='/home/deploy/deploy-templates/kasuki-evaluator'
     ;;
+  salesman)
+    REPO='git@github.com:My-Suki/kasuki-salesman.git'
+    GIT_KEY='/home/deploy/.ssh/github-kasuki-salesman'
+    BASE='/home/deploy/apps/kasuki-salesman'
+    CHECKOUT='/home/deploy/deploy-checkouts/kasuki-salesman'
+    PROJECT='kasuki-salesman'
+    PORT='8516'
+    ;;
   *) echo "Unknown app: $APP" >&2; usage ;;
 esac
 
@@ -91,14 +101,14 @@ cd "$CHECKOUT"
 git remote set-url origin "$REPO"
 git fetch --quiet --tags --prune origin '+refs/heads/*:refs/remotes/origin/*'
 
-mapfile -t MATCHES < <(git show-ref --dereference | awk -v ref="$REF" '$2 == "refs/remotes/origin/" ref || $2 == "refs/tags/" ref || $2 == "refs/tags/" ref "^{}" {print $1 "\t" $2}')
-[[ ${#MATCHES[@]} -gt 0 ]] || { echo "Remote branch or tag not found: $REF" >&2; exit 1; }
-COMMIT=''
-for match in "${MATCHES[@]}"; do
-  candidate="${match%%$'\t'*}"
-  [[ -n "$COMMIT" && "$candidate" != "$COMMIT" ]] && { echo "Ambiguous ref: $REF" >&2; exit 1; }
-  COMMIT="$candidate"
-done
+if git show-ref --verify --quiet "refs/remotes/origin/$REF"; then
+  COMMIT="$(git rev-parse "refs/remotes/origin/$REF")"
+elif git show-ref --verify --quiet "refs/tags/$REF"; then
+  COMMIT="$(git rev-list -n 1 "refs/tags/$REF")"
+else
+  echo "Remote branch or tag not found: $REF" >&2
+  exit 1
+fi
 SHORT="${COMMIT:0:12}"
 OLD_COMMIT="$(cat "$BASE/RELEASE_COMMIT" 2>/dev/null || echo unknown)"
 INCOMING="${BASE}.incoming"
